@@ -1,11 +1,15 @@
-import React from 'react';
-import { useColumnsQuery } from '../../services/ApiSlice';
+
+import useDatabaseValues from '../../hooks/useDatabaseValues';
+import { useBooksQuery } from '../../services/ApiSlice';
 
 const IndexTable = () => {
-const { data, error } = useColumnsQuery(undefined);
 
+const { data } = useBooksQuery(undefined)
+const { booksToPrint } = useDatabaseValues();
 
-console.log('',data)
+// console.log('',data.items.map((item:any) => {
+// return item.volumeInfo
+// }))
     return (
         <div>
             tabela

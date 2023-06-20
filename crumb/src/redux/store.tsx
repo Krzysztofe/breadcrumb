@@ -1,14 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { columnsApiSlice } from "../services/ApiSlice";
+import { booksApiSlice } from "../services/ApiSlice";
 
 
 export const store = configureStore({
   reducer: {
-    
-    [columnsApiSlice.reducerPath]: columnsApiSlice.reducer,
+    [booksApiSlice.reducerPath]: booksApiSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(columnsApiSlice.middleware),
+    getDefaultMiddleware().concat(booksApiSlice.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
