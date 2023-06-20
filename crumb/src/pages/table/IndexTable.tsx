@@ -4,14 +4,11 @@ import { useBooksQuery } from '../../services/ApiSlice';
 
 const IndexTable = () => {
 
-const { data } = useBooksQuery(undefined)
 const { booksToPrint } = useDatabaseValues();
 
-// console.log('',data.items.map((item:any) => {
-// return item.volumeInfo
-// }))
+
     return (
-        <div>
+        <div className='oo'>
             tabela
         </div>
     );
