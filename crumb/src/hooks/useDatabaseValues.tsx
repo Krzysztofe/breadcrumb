@@ -21,7 +21,7 @@ const useDatabaseValues = () => {
 
 //   const authors
 
-//   console.log("eee", data && booksToPrint);
+  console.log("eee", data && data);
 
   return { booksToPrint };
 };
