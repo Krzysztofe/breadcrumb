@@ -14,14 +14,14 @@ const useDatabaseValues = () => {
   const booksToPrint = volumesInfo?.map((volume: Volume) => {
     return {
       title: volume.title,
-      authors: volume.authors.join(", "),
-      publishedDate: volume.publishedDate,
+      author: volume.authors.join(", "),
+      date: volume.publishedDate,
     };
   });
 
 //   const authors
 
-  console.log("eee", data && booksToPrint);
+//   console.log("eee", data && booksToPrint);
 
   return { booksToPrint };
 };

@@ -1,6 +1,8 @@
 
 import useDatabaseValues from '../../hooks/useDatabaseValues';
-import { useBooksQuery } from '../../services/ApiSlice';
+import TableBooks from './tableBooks/TableBooks';
+import TableHead from './tableHead/TableHead';
+import TableBody from './tableBody/TableBody';
 
 const IndexTable = () => {
 
@@ -8,9 +10,12 @@ const { booksToPrint } = useDatabaseValues();
 
 
     return (
-        <div className='oo'>
-            tabela
-        </div>
+      <main className="">
+        <TableBooks>
+          <TableHead />
+          <TableBody />
+        </TableBooks>
+      </main>
     );
 };
 
