@@ -23,28 +23,22 @@ const AuthorDetails = () => {
       );
     });
 
-  const yy = location.pathname
+  const yy = location.pathname;
 
-const handleClick = () => {
-  navigate(`${yy}/okłdaka`);
-};
-
-
-
-  console.log("", yy);
+  const handleClick = () => {
+    navigate(`${yy}/okladaka`);
+  };
 
   return (
     <>
-      <><Link to ={"/"}>Home</Link> {crumbs} </>
-
-      {bookDetails?.map(({ title, authorName }) => {
-        return (
-          <div key={crypto.randomUUID()} className="">
-            {title}, imie: {authorName}
-            <div onClick = {handleClick}>okładka</div>
-          </div>
-        );
-      })}
+      <Link to={"/"}>Home</Link> {crumbs}
+      <h2>Książka pod tytułem "{bookDetails?.[0]?.title}"</h2>
+      {bookDetails?.[0]?.description ? (
+        <p>{bookDetails?.[0]?.description}</p>
+      ) : (
+        <p>Brak opisu</p>
+      )}
+      <button onClick={handleClick}> Zobacz okładkę</button>
     </>
   );
 };

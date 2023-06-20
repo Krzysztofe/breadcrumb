@@ -4,40 +4,38 @@ import TableHead from "./tableHead/TableHead";
 import TableBody from "./tableBody/TableBody";
 import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 const IndexTable = () => {
   const { authorURL } = useParams();
-  const { booksToPrint } = useDatabaseValues();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { bookDetails } = useDatabaseValues(authorURL);
 
-  let curLink = "";
+  const { isOpenRow } = useSelector((state: RootState) => state.tableBooks);
+
+  const location = useLocation();
+
+  let currentLink = "";
 
   const crumbs = location.pathname
     .split("/")
     .filter(crumb => crumb !== "")
     .map(crumb => {
-      curLink += `/${crumb}`;
+      currentLink += `/${crumb}`;
       return (
         <div key={crypto.randomUUID()} className="">
-          <Link to={curLink}>{crumb}</Link>
+          <Link to={currentLink}>{crumb}</Link>
         </div>
       );
     });
 
+console.log("xx", location.pathname);
 
- const yy = location.pathname.split("/");
- console.log("", yy);
 
-  //   useEffect(() => {
-  //     navigate(`/${author}`);
-  //   }, [author]);
-
-  console.log("", location);
 
   return (
     <main className="">
-      <div>{crumbs}</div>
+      <Link to={"/"}>Home</Link> {isOpenRow && <div> {crumbs} </div>}
       <TableBooks>
         <TableHead />
         <TableBody />
