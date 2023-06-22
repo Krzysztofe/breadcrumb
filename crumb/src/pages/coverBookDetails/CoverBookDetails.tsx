@@ -26,13 +26,13 @@ console.log('xx',location.pathname)
 
   return (
     <div>
-      <Link to={"/"}>Home</Link> <div>{crumbs}</div>
+      {/* <Link to={"/"}>Home</Link> <div>{crumbs}</div>
       <img src={bookDetails?.[0]?.bookCover} alt="Okładka książki" />
       {bookDetails?.[0]?.publisher ? (
         <div>Wydawca: {bookDetails?.[0]?.publisher}</div>
       ) : (
         <div>Brak informacji o wydawcy</div>
-      )}
+      )} */}
     </div>
   );
 };

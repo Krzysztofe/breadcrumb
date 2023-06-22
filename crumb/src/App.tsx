@@ -16,7 +16,7 @@ function App() {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<IndexTable />} />
-          <Route path="/:authorURL" element={<IndexTable />} />
+          <Route path="/:authorURL" element={<AuthorDetails />} />
           <Route path="/:authorURL/:coverURL" element={<CoverBookDetails />} />
         </Routes>
       </Suspense>

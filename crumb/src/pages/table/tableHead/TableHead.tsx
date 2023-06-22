@@ -4,7 +4,7 @@ const TableHead = () => {
     return (
         <thead>
             <tr>
-                {["Nr", "Autor", "Tytuł", "Ilość stron"].map((header) => {
+                {["Nr", "Autor", "Tytuł"].map((header) => {
                 return <th key = {header}>{header}</th>
                 })}
             </tr>

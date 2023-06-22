@@ -31,14 +31,14 @@ const AuthorDetails = () => {
 
   return (
     <>
-      <Link to={"/"}>Home</Link> {crumbs}
+      {/* <Link to={"/"}>Home</Link> {crumbs}
       <h2>Książka pod tytułem "{bookDetails?.[0]?.title}"</h2>
       {bookDetails?.[0]?.description ? (
         <p>{bookDetails?.[0]?.description}</p>
       ) : (
         <p>Brak opisu</p>
       )}
-      <button onClick={handleClick}> Zobacz okładkę</button>
+      <button onClick={handleClick}> Zobacz okładkę</button> */}
     </>
   );
 };
