@@ -1,22 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
-  isOpenRow: null | string;
+  bookId: string;
 }
 
 const initialState: InitialState = {
-  isOpenRow: null,
+  bookId: "",
 };
 
 export const tableBooksSlice = createSlice({
   name: "tableBooks",
   initialState,
   reducers: {
-    handleChangeRow: (state, action: PayloadAction<any>) => {
-      state.isOpenRow = action.payload;
+    handleGetBookId: (state, action: PayloadAction<any>) => {
+      state.bookId = action.payload;
     },
   },
 });
 
-export const { handleChangeRow } = tableBooksSlice.actions;
+export const { handleGetBookId } = tableBooksSlice.actions;
 export default tableBooksSlice.reducer;

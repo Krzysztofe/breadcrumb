@@ -1,38 +1,57 @@
 import { useBooksQuery } from "../services/ApiSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-interface Volume {
-  [key: string]: any;
+interface ModelBookToPrint {
+  id: string;
+  title: string;
+  authorName: string;
+  date: string;
+  bookCover: string;
+  publisher: string;
+  pageCount: number;
+  description: string;
 }
 
-const useDatabaseValues = (authorURL: any = "default") => {
-  const { data } = useBooksQuery();
+interface ModelDatabaseValues {
+  booksToPrint?: ModelBookToPrint[];
+  bookDetails?: ModelBookToPrint[];
+  bookID?: ModelBookToPrint[];
+  error?: {};
+  isSuccess: boolean;
+}
+
+const useDatabaseValues = (authorURL: any = "default"): ModelDatabaseValues => {
+  const { bookId } = useSelector((state: RootState) => state.tableBooks);
+  const { data, error, isSuccess } = useBooksQuery();
   const authorNameURL = authorURL?.replaceAll("_", " ");
 
-  const volumesData = data?.items?.map((volume: Volume) => {
+  const volumesData = data?.items?.map((volume: { [key: string]: any }) => {
     return volume?.volumeInfo;
   });
 
-  const booksToPrint = volumesData?.map((volume: Volume) => {
-    return {
-      id: crypto.randomUUID(),
-      title: volume.title,
-      authorName: volume?.authors?.join(", "),
-    //   date: volume.publishedDate,
-    //   bookCover: volume.imageLinks.thumbnail,
-    //   publisher: volume.publisher,
-    //   pageCount: volume.pageCount,
-    //   description: volume.description,
-    };
+  const booksToPrint = volumesData?.map(
+    (volume: { [key: string]: any }, idx: number) => {
+      return {
+        id: data?.items[idx].id,
+        title: volume.title,
+        authorName: volume?.authors?.join(", "),
+        date: volume.publishedDate,
+        bookCover: volume.imageLinks.thumbnail,
+        publisher: volume.publisher,
+        pageCount: volume.pageCount,
+        description: volume.description,
+      };
+    }
+  );
+
+  const bookDetails = booksToPrint?.filter(({ id }) => {
+    return id === bookId;
   });
 
-  const bookDetails = booksToPrint?.filter(({ authorName }) => {
-    return authorName === authorNameURL;
-  });
+    // console.log("eee", bookId);
 
-  // console.log("eee", data && volumesData);
-  //   console.log("print", data && booksToPrint);
-
-  return { booksToPrint, bookDetails };
+  return { booksToPrint, bookDetails, error, isSuccess };
 };
 
 export default useDatabaseValues;
