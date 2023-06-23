@@ -1,31 +1,28 @@
-import {
-  useLocation,
-  useNavigate
-} from "react-router-dom";
-import Bredcrumb from "../../components/BredCrumb";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 
 const AuthorDetails = () => {
-  const { bookDetails, error, isSuccess } = useDatabaseValues();
-
   const location = useLocation();
   const navigate = useNavigate();
+  const { authorUrl } = useParams();
 
-  const handleClick = () => {
-    navigate(`${location.pathname}/okladaka`);
+  const { bookDetails, authorBooks, error, isSuccess } =
+    useDatabaseValues(authorUrl);
+
+  const handleBookClick = (id: string) => {
+    navigate(`/author/:authorUrl/${id}`);
   };
 
   return (
-    <>
-      <Bredcrumb />
-      <h2>Książka pod tytułem "{bookDetails?.[0]?.title}"</h2>
-      {bookDetails?.[0]?.description ? (
-        <p>{bookDetails?.[0]?.description}</p>
-      ) : (
-        <p>Brak opisu</p>
-      )}
-      <button onClick={handleClick}> Zobacz okładkę</button>
-    </>
+    <main>
+      {authorBooks?.map(({ bookTitle, authorName, bookCover, id }) => {
+        return (
+          <div key={crypto.randomUUID()} onClick={() => handleBookClick(id)}>
+            tytuł: {bookTitle} &nbsp; imię: {authorName} &nbsp; id: {id}
+          </div>
+        );
+      })}
+    </main>
   );
 };
 

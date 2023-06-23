@@ -4,9 +4,9 @@ import { RootState } from "../redux/store";
 
 interface ModelBookToPrint {
   id: string;
-  title: string;
+  bookTitle: string;
   authorName: string;
-  date: string;
+  publishedDate: string;
   bookCover: string;
   publisher: string;
   pageCount: number;
@@ -15,16 +15,17 @@ interface ModelBookToPrint {
 
 interface ModelDatabaseValues {
   booksToPrint?: ModelBookToPrint[];
-  bookDetails?: ModelBookToPrint[];
-  bookID?: ModelBookToPrint[];
+  bookDetails?: ModelBookToPrint;
+  authorBooks?: ModelBookToPrint[];
   error?: {};
   isSuccess: boolean;
 }
 
-const useDatabaseValues = (authorURL: any = "default"): ModelDatabaseValues => {
-  const { bookId } = useSelector((state: RootState) => state.tableBooks);
+const useDatabaseValues = (bookIdUrl: any = "default"): ModelDatabaseValues => {
+
   const { data, error, isSuccess } = useBooksQuery();
-  const authorNameURL = authorURL?.replaceAll("_", " ");
+
+
 
   const volumesData = data?.items?.map((volume: { [key: string]: any }) => {
     return volume?.volumeInfo;
@@ -34,9 +35,9 @@ const useDatabaseValues = (authorURL: any = "default"): ModelDatabaseValues => {
     (volume: { [key: string]: any }, idx: number) => {
       return {
         id: data?.items[idx].id,
-        title: volume.title,
+        bookTitle: volume.title,
         authorName: volume?.authors?.join(", "),
-        date: volume.publishedDate,
+        publishedDate: volume.publishedDate,
         bookCover: volume.imageLinks.thumbnail,
         publisher: volume.publisher,
         pageCount: volume.pageCount,
@@ -45,13 +46,19 @@ const useDatabaseValues = (authorURL: any = "default"): ModelDatabaseValues => {
     }
   );
 
-  const bookDetails = booksToPrint?.filter(({ id }) => {
-    return id === bookId;
+  const bookDetails = booksToPrint?.find(({ id }) => {
+    return id === bookIdUrl;
   });
 
-    // console.log("eee", bookId);
+  const authorBooks = booksToPrint?.filter(({authorName }) => {
+    return authorName === bookIdUrl;
+  });
 
-  return { booksToPrint, bookDetails, error, isSuccess };
+
+//   console.log("", authorBooks);
+//   console.log("", bookDetails);
+
+  return { booksToPrint, bookDetails,authorBooks, error, isSuccess };
 };
 
 export default useDatabaseValues;

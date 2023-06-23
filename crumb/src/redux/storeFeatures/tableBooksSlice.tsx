@@ -1,22 +1,28 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
-  bookId: string;
+  page: number;
+  rowsPerPage: number
 }
 
 const initialState: InitialState = {
-  bookId: "",
+  page: 0,
+  rowsPerPage: 5
 };
 
 export const tableBooksSlice = createSlice({
   name: "tableBooks",
   initialState,
   reducers: {
-    handleGetBookId: (state, action: PayloadAction<any>) => {
-      state.bookId = action.payload;
+    handleChangeTablePage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+    handleChangeTableRowsPerPage: (state, action: PayloadAction<number>) => {
+      state.rowsPerPage = action.payload;
     },
   },
 });
 
-export const { handleGetBookId } = tableBooksSlice.actions;
+export const { handleChangeTablePage, handleChangeTableRowsPerPage } =
+  tableBooksSlice.actions;
 export default tableBooksSlice.reducer;

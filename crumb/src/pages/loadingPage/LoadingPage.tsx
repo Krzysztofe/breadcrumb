@@ -1,11 +1,18 @@
-import React from 'react';
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const LoadingPage = () => {
-    return (
-        <div>
-            loading
-        </div>
-    );
+  return (
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+  <LoadingSpinner/>
+    </main>
+  );
 };
 
 export default LoadingPage;

@@ -1,20 +1,33 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Breadcrumbs, Typography } from "@mui/material";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
+import useDatabaseValues from "../hooks/useDatabaseValues";
 
 const Bredcrumb = () => {
+  const { bookIdUrl, bookCoverUrl } = useParams();
   const location = useLocation();
-
-  let currentLink = "";
+  const { bookDetails } = useDatabaseValues(bookIdUrl);
 
   const crumbs = location.pathname.split("/").filter(crumb => crumb !== "");
 
+  let typographyContent = bookDetails?.bookTitle || "Brak danych autora";
+
+  if (bookCoverUrl) {
+    typographyContent = `Okładka "${bookDetails?.bookTitle}"`;
+  }
+
+  let currentLink = "";
+
   const crumbsToPrint = crumbs.map((crumb, idx) => {
     currentLink += `/${crumb}`;
-    return idx === crumbs.length - 1 ? (
-      <Typography>okladka</Typography>
+    return idx > 0 || idx === crumbs.length - 1 ? (
+      <Typography key={crypto.randomUUID()}>{typographyContent}</Typography>
     ) : (
-      <RouterLink to={`${currentLink}`}>{crumb}</RouterLink>
+      <RouterLink key={crypto.randomUUID()} to={`${currentLink}`}>
+        {bookDetails?.bookTitle === undefined
+          ? "Brak danych autora"
+          : bookDetails?.bookTitle}
+      </RouterLink>
     );
   });
 
@@ -25,9 +38,9 @@ const Bredcrumb = () => {
         separator={<NavigateNextIcon fontSize="small" />}
       >
         {location.pathname === "/" ? (
-          <Typography>Tabela</Typography>
+          <Typography>Lista</Typography>
         ) : (
-          <RouterLink to={`/`}>Tabela</RouterLink>
+          <RouterLink to={`/`}>Lista</RouterLink>
         )}
 
         {crumbsToPrint}
