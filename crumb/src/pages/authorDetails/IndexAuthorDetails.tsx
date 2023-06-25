@@ -1,20 +1,18 @@
 import Typography from "@mui/material/Typography";
-import Bredcrumb from "../../components/BredCrumb";
-import AuthorTable from "./AuthorTable";
-import useDatabaseValues from "../../hooks/useDatabaseValues";
-import LoadingPage from "../loadingPage/LoadingPage";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Breadcrumb from "../../components/BreadCrumb";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import useDatabaseValues from "../../hooks/useDatabaseValues";
+import AuthorTable from "./AuthorTable";
 
 const IndexAuthorDetails = () => {
   const { bookIdUrl, authorUrl } = useParams();
-  const {
-    authorBooks = [],
-    error,
-    isLoading,
-  } = useDatabaseValues(bookIdUrl, authorUrl);
+  const { authorBooks, error, isLoading } = useDatabaseValues(
+    bookIdUrl,
+    authorUrl
+  );
 
-  let tableContent: React.ReactNode = null;
+  let tableContent;
 
   if (isLoading) {
     tableContent = <LoadingSpinner />;
@@ -31,7 +29,7 @@ const IndexAuthorDetails = () => {
         Błąd
       </Typography>
     );
-  } else if (authorBooks === undefined || authorBooks.length === 0) {
+  } else if (!authorBooks || authorBooks.length === 0) {
     tableContent = (
       <main
         style={{
@@ -45,17 +43,12 @@ const IndexAuthorDetails = () => {
       </main>
     );
   } else {
-    tableContent = (
-      <>
-      
-        <AuthorTable />
-      </>
-    );
+    tableContent = <AuthorTable />;
   }
 
   return (
     <main>
-      <Bredcrumb />
+      <Breadcrumb />
       <Typography variant="h2" component="h2" fontSize="">
         Lista książek wybranego autora
       </Typography>

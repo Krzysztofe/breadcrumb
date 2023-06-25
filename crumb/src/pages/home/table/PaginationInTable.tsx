@@ -1,6 +1,6 @@
-import { TablePagination } from "@mui/material";
+import TablePagination from "@mui/material/TablePagination";
+import { useDispatch, useSelector } from "react-redux";
 import useDatabaseValues from "../../../hooks/useDatabaseValues";
-import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 import {
   handleChangeTablePage,

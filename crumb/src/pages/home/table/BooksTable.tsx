@@ -59,12 +59,14 @@ const BooksTable = (props: Props) => {
                   <TableCell
                     onClick={() => handleAuthorClick(authorName)}
                     sx={{
-                      ":hover": { backgroundColor: "red" },
+                      ":hover": {
+                        backgroundColor: theme => theme.palette.secondary.main,
+                      },
                       cursor: "pointer",
                     }}
                   >
-                    {authorName === undefined ? (
-                      <Typography color="error">Brak danych</Typography>
+                    {!authorName ? (
+                      <Typography color="error">Brak autora</Typography>
                     ) : (
                       authorName
                     )}
@@ -76,8 +78,8 @@ const BooksTable = (props: Props) => {
                       cursor: "pointer",
                     }}
                   >
-                    {bookTitle === undefined ? (
-                      <Typography color="error">Brak danych</Typography>
+                    {!bookTitle ? (
+                      <Typography color="error">Brak tytułu</Typography>
                     ) : (
                       bookTitle
                     )}

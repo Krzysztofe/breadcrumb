@@ -1,7 +1,3 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useDatabaseValues from "../../hooks/useDatabaseValues";
-import Bredcrumb from "../../components/BredCrumb";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,19 +5,22 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import { useNavigate, useParams } from "react-router-dom";
+import useDatabaseValues from "../../hooks/useDatabaseValues";
 
 const AuthorTable = () => {
-const navigate = useNavigate();
-const { bookIdUrl, authorUrl } = useParams();
+  const navigate = useNavigate();
+  const { bookIdUrl, authorUrl } = useParams();
 
-const { authorBooks, error, isSuccess } = useDatabaseValues(
-  bookIdUrl,
-  authorUrl
-);
+  const { authorBooks } = useDatabaseValues(
+    bookIdUrl,
+    authorUrl
+  );
 
-const handleBookClick = (id: string) => {
-  navigate(`/author/${authorUrl}/${id}`);
-};
+  const handleBookClick = (id: string) => {
+    navigate(`/author/${authorUrl}/${id}`);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -49,18 +48,18 @@ const handleBookClick = (id: string) => {
                   <TableCell>{idx + 1}</TableCell>
                   <TableCell>{authorName}</TableCell>
                   <TableCell>
-                    {bookTitle === undefined ? (
+                    {!bookTitle ? (
                       <Typography style={{ color: "red" }}>
-                        Brak danych
+                        Brak tytułu
                       </Typography>
                     ) : (
                       <Typography>{bookTitle}</Typography>
                     )}
                   </TableCell>
                   <TableCell>
-                    {publishedDate === undefined ? (
+                    {!publishedDate ? (
                       <Typography style={{ color: "red" }}>
-                        Brak danych
+                        Brak daty
                       </Typography>
                     ) : (
                       <Typography>{publishedDate}</Typography>

@@ -1,15 +1,14 @@
-import Bredcrumb from "../../components/BredCrumb";
+import Typography from "@mui/material/Typography";
+import Breadcrumb from "../../components/BreadCrumb";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
-import LoadingPage from "../loadingPage/LoadingPage";
 import BooksTable from "./table/BooksTable";
 import PaginationInTable from "./table/PaginationInTable";
-import Typography from "@mui/material/Typography";
 
 const IndexHome = () => {
   const { booksToPrint, error, isLoading } = useDatabaseValues();
 
-  let tableContent: React.ReactNode = null;
+  let tableContent;
 
   if (isLoading) {
     tableContent = <LoadingSpinner />;
@@ -26,7 +25,7 @@ const IndexHome = () => {
         Błąd
       </Typography>
     );
-  } else if (booksToPrint === undefined || booksToPrint.length === 0) {
+  } else if (!booksToPrint || booksToPrint.length === 0) {
     tableContent = (
       <div
         style={{
@@ -49,7 +48,7 @@ const IndexHome = () => {
 
   return (
     <main className="">
-      <Bredcrumb />
+      <Breadcrumb />
       <Typography variant="h1" component="h1" fontSize="">
         Lista książek
       </Typography>

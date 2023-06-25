@@ -6,9 +6,7 @@ const IndexBookDetails = lazy(
   () => import("./pages/bookDetails/IndexBookDetails")
 );
 const IndexAuthorDetails = lazy(() => import("./pages/authorDetails/IndexAuthorDetails"));
-const CoverBookDetails = lazy(
-  () => import("../src/pages/coverBookDetails/CoverBookDetails")
-);
+
 
 function App() {
   return (

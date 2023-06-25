@@ -1,16 +1,16 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Bredcrumb from "../../components/BredCrumb";
+import Typography from "@mui/material/Typography";
+import { useParams } from "react-router-dom";
+import Breadcrumb from "../../components/BreadCrumb";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 import BookCard from "./BookCard";
-import Typography from "@mui/material/Typography";
-import LoadingSpinner from "../../components/LoadingSpinner";
 
 const IndexBookDetails = () => {
   const { bookIdUrl } = useParams();
 
   const { bookDetails, error, isLoading } = useDatabaseValues(bookIdUrl);
 
-  let bookCardContent: React.ReactNode = null;
+  let bookCardContent;
 
   if (isLoading) {
     bookCardContent = <LoadingSpinner />;
@@ -28,7 +28,7 @@ const IndexBookDetails = () => {
         Błąd
       </Typography>
     );
-  } else if (bookDetails === undefined || bookDetails === null) {
+  } else if (!bookDetails) {
     bookCardContent = (
       <div
         style={{
@@ -47,7 +47,7 @@ const IndexBookDetails = () => {
 
   return (
     <>
-      <Bredcrumb />
+      <Breadcrumb />
       {bookCardContent}
     </>
   );

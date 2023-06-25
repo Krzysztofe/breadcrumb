@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { URL_BOOKS_DATA } from "../data/apiKeys";
 
-// AIzaSyB1MVr2HmehS3G6YXCZn9NXqRHR - wkwM2o;
 
-const URL_DATA =
-  "https://www.googleapis.com/books/v1/volumes?q=pride&download=epub&key=AIzaSyB1MVr2HmehS3G6YXCZn9NXqRHR-wkwM2o&startIndex=0&maxResults=40";
 
 interface Data {
   kind: string;
@@ -13,7 +11,7 @@ interface Data {
 
 export const booksApiSlice = createApi({
   reducerPath: "booksApi",
-  baseQuery: fetchBaseQuery({ baseUrl: URL_DATA }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL_BOOKS_DATA }),
 
   endpoints: builder => ({
     books: builder.query<Data, void>({
