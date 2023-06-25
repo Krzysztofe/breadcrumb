@@ -58,20 +58,26 @@ const BooksTable = (props: Props) => {
                   <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
                   <TableCell
                     onClick={() => handleAuthorClick(authorName)}
-                    sx={{ ":hover": { backgroundColor: "red" }, cursor:"pointer"  }}
+                    sx={{
+                      ":hover": { backgroundColor: "red" },
+                      cursor: "pointer",
+                    }}
                   >
                     {authorName === undefined ? (
-                      <Typography style={{ color: "red" }}>Brak danych</Typography>
+                      <Typography color="error">Brak danych</Typography>
                     ) : (
                       authorName
                     )}
                   </TableCell>
                   <TableCell
                     onClick={() => handleBookClick(id)}
-                    sx={{ ":hover": { backgroundColor: "red" }, cursor:"pointer" }}
+                    sx={{
+                      ":hover": { backgroundColor: "red" },
+                      cursor: "pointer",
+                    }}
                   >
                     {bookTitle === undefined ? (
-                      <Typography style={{ color: "red" }}>Brak danych</Typography>
+                      <Typography color="error">Brak danych</Typography>
                     ) : (
                       bookTitle
                     )}

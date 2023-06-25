@@ -6,7 +6,6 @@ import BooksTable from "./table/BooksTable";
 import PaginationInTable from "./table/PaginationInTable";
 import Typography from "@mui/material/Typography";
 
-
 const IndexHome = () => {
   const { booksToPrint, error, isLoading } = useDatabaseValues();
 
@@ -47,8 +46,6 @@ const IndexHome = () => {
       </BooksTable>
     );
   }
-
-  console.log("", error);
 
   return (
     <main className="">

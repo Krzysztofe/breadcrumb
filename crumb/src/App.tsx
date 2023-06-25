@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoadingPage from "./pages/loadingPage/LoadingPage";
 const IndexHome = lazy(() => import("./pages/home/IndexHome"));
-const BookDetails = lazy(
-  () => import("./pages/bookDetails/BookDetails")
+const IndexBookDetails = lazy(
+  () => import("./pages/bookDetails/IndexBookDetails")
 );
 const IndexAuthorDetails = lazy(() => import("./pages/authorDetails/IndexAuthorDetails"));
 const CoverBookDetails = lazy(
@@ -16,11 +16,11 @@ function App() {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<IndexHome />} />
-          <Route path="/books/:bookIdUrl" element={<BookDetails />} />
+          <Route path="/books/:bookIdUrl" element={<IndexBookDetails />} />
           <Route path="/author/:authorUrl" element={<IndexAuthorDetails />} />
           <Route
             path="/author/:authorUrl/:bookIdUrl"
-            element={<BookDetails />}
+            element={<IndexBookDetails />}
           />
         </Routes>
       </Suspense>
