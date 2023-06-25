@@ -1,14 +1,18 @@
+import Typography from "@mui/material/Typography";
 import Bredcrumb from "../../components/BredCrumb";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import AuthorTable from "./AuthorTable";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 import LoadingPage from "../loadingPage/LoadingPage";
-import BooksTable from "./table/BooksTable";
-import PaginationInTable from "./table/PaginationInTable";
-import Typography from "@mui/material/Typography";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-
-const IndexHome = () => {
-  const { booksToPrint, error, isLoading } = useDatabaseValues();
+const IndexAuthorDetails = () => {
+  const { bookIdUrl, authorUrl } = useParams();
+  const {
+    authorBooks = [],
+    error,
+    isLoading,
+  } = useDatabaseValues(bookIdUrl, authorUrl);
 
   let tableContent: React.ReactNode = null;
 
@@ -27,9 +31,9 @@ const IndexHome = () => {
         Błąd
       </Typography>
     );
-  } else if (booksToPrint === undefined || booksToPrint.length === 0) {
+  } else if (authorBooks === undefined || authorBooks.length === 0) {
     tableContent = (
-      <div
+      <main
         style={{
           height: "100vh",
           display: "flex",
@@ -38,27 +42,26 @@ const IndexHome = () => {
         }}
       >
         <div>Brak danych</div>
-      </div>
+      </main>
     );
   } else {
     tableContent = (
-      <BooksTable>
-        <PaginationInTable />
-      </BooksTable>
+      <>
+      
+        <AuthorTable />
+      </>
     );
   }
 
-  console.log("", error);
-
   return (
-    <main className="">
+    <main>
       <Bredcrumb />
-      <Typography variant="h1" component="h1" fontSize="">
-        Lista książek
+      <Typography variant="h2" component="h2" fontSize="">
+        Lista książek wybranego autora
       </Typography>
       {tableContent}
     </main>
   );
 };
 
-export default IndexHome;
+export default IndexAuthorDetails;

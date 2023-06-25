@@ -9,9 +9,11 @@ const BookDetails = () => {
 
   const { bookDetails, error, isSuccess } = useDatabaseValues(bookIdUrl);
 
-  const handleClick = () => {
-    navigate(`${location.pathname}/okladaka`);
-  };
+  // const handleClick = () => {
+  //   navigate(`${location.pathname}/okladaka`);
+  // };
+
+  // console.log("book details", bookDetails);
 
   return (
     <>
@@ -22,7 +24,7 @@ const BookDetails = () => {
       ) : (
         <p>Brak opisu</p>
       )}
-      <button onClick={handleClick}> Zobacz okładkę</button>
+      {/* <button onClick={handleClick}> Zobacz okładkę</button> */}
     </>
   );
 };

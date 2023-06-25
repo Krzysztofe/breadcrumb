@@ -1,17 +1,16 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { useNavigate } from "react-router-dom";
 import useDatabaseValues from "../../../hooks/useDatabaseValues";
+import { RootState } from "../../../redux/store";
+import { Typography } from "@mui/material";
 
 interface Props {
   children: ReactNode;
@@ -30,11 +29,12 @@ const BooksTable = (props: Props) => {
   );
 
   const handleBookClick = (id: string) => {
-    navigate(`/book/${id}`);
+    navigate(`/books/${id}`);
   };
 
   const handleAuthorClick = (authorName: string) => {
-    navigate(`/author/${authorName}`);
+    const authorToUrl = authorName?.replaceAll(" ", "-").toLowerCase();
+    navigate(`/author/${authorToUrl}`);
   };
 
   return (
@@ -53,17 +53,28 @@ const BooksTable = (props: Props) => {
               return (
                 <TableRow
                   key={id}
-                  // onClick={() => props.handleRowClick(id)}
                   //   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
-                  <TableCell onClick={() => handleAuthorClick(authorName)}>
-                    {authorName === undefined
-                      ? "Brak danych autora"
-                      : authorName}
+                  <TableCell
+                    onClick={() => handleAuthorClick(authorName)}
+                    sx={{ ":hover": { backgroundColor: "red" }, cursor:"pointer"  }}
+                  >
+                    {authorName === undefined ? (
+                      <Typography style={{ color: "red" }}>Brak danych</Typography>
+                    ) : (
+                      authorName
+                    )}
                   </TableCell>
-                  <TableCell onClick={() => handleBookClick(id)}>
-                    {bookTitle === undefined ? "Brak danych tytułu" : bookTitle}
+                  <TableCell
+                    onClick={() => handleBookClick(id)}
+                    sx={{ ":hover": { backgroundColor: "red" }, cursor:"pointer" }}
+                  >
+                    {bookTitle === undefined ? (
+                      <Typography style={{ color: "red" }}>Brak danych</Typography>
+                    ) : (
+                      bookTitle
+                    )}
                   </TableCell>
                 </TableRow>
               );

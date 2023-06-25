@@ -1,6 +1,5 @@
+import { useLocation } from "react-router-dom";
 import { useBooksQuery } from "../services/ApiSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 
 interface ModelBookToPrint {
   id: string;
@@ -19,13 +18,15 @@ interface ModelDatabaseValues {
   authorBooks?: ModelBookToPrint[];
   error?: {};
   isSuccess: boolean;
+  isLoading:any
 }
 
-const useDatabaseValues = (bookIdUrl: any = "default"): ModelDatabaseValues => {
-
-  const { data, error, isSuccess } = useBooksQuery();
-
-
+const useDatabaseValues = (
+  bookIdUrl: string = "default",
+  authorUrl: string = "default"
+): ModelDatabaseValues => {
+  const location = useLocation();
+  const { data, error, isSuccess, isLoading } = useBooksQuery();
 
   const volumesData = data?.items?.map((volume: { [key: string]: any }) => {
     return volume?.volumeInfo;
@@ -50,15 +51,16 @@ const useDatabaseValues = (bookIdUrl: any = "default"): ModelDatabaseValues => {
     return id === bookIdUrl;
   });
 
-  const authorBooks = booksToPrint?.filter(({authorName }) => {
-    return authorName === bookIdUrl;
-  });
+  const authorBooks =
+    authorUrl !== "undefined"
+      ? booksToPrint?.filter(({ authorName }) => {
+          return authorName?.toLowerCase() === authorUrl?.replaceAll("-", " ");
+        })
+      : [];
 
+  // console.log("bookdetails", authorBooks);
 
-//   console.log("", authorBooks);
-//   console.log("", bookDetails);
-
-  return { booksToPrint, bookDetails,authorBooks, error, isSuccess };
+  return { booksToPrint, isLoading, bookDetails, authorBooks, error, isSuccess };
 };
 
 export default useDatabaseValues;

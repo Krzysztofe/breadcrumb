@@ -5,27 +5,22 @@ const IndexHome = lazy(() => import("./pages/home/IndexHome"));
 const BookDetails = lazy(
   () => import("./pages/bookDetails/BookDetails")
 );
-const AuthorDetails = lazy(() => import("./pages/authorDetails/AuthorDetails"));
+const IndexAuthorDetails = lazy(() => import("./pages/authorDetails/IndexAuthorDetails"));
 const CoverBookDetails = lazy(
   () => import("../src/pages/coverBookDetails/CoverBookDetails")
 );
 
 function App() {
   return (
-    <BrowserRouter basename="/tabela">
+    <BrowserRouter basename="/lista">
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<IndexHome />} />
-          <Route path="/book/:bookIdUrl" element={<BookDetails />} />
-          <Route path="/author/:authorUrl" element={<AuthorDetails />} />
+          <Route path="/books/:bookIdUrl" element={<BookDetails />} />
+          <Route path="/author/:authorUrl" element={<IndexAuthorDetails />} />
           <Route
             path="/author/:authorUrl/:bookIdUrl"
             element={<BookDetails />}
-          />
-
-          <Route
-            path="/:bookIdUrl/:bookCoverUrl"
-            element={<CoverBookDetails />}
           />
         </Routes>
       </Suspense>
