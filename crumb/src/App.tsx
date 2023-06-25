@@ -5,12 +5,13 @@ const IndexHome = lazy(() => import("./pages/home/IndexHome"));
 const IndexBookDetails = lazy(
   () => import("./pages/bookDetails/IndexBookDetails")
 );
-const IndexAuthorDetails = lazy(() => import("./pages/authorDetails/IndexAuthorDetails"));
-
+const IndexAuthorDetails = lazy(
+  () => import("./pages/authorDetails/IndexAuthorDetails")
+);
 
 function App() {
   return (
-    <BrowserRouter basename="/lista">
+    <BrowserRouter basename="/breadcrumb">
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<IndexHome />} />
