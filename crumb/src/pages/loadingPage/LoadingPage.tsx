@@ -1,5 +1,4 @@
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const LoadingPage = () => {
   return (
@@ -11,9 +10,7 @@ const LoadingPage = () => {
         alignItems: "center",
       }}
     >
-      <Box>
-        <CircularProgress color="inherit" />
-      </Box>
+      <LoadingSpinner />
     </main>
   );
 };

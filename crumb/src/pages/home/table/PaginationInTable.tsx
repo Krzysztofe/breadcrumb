@@ -37,7 +37,7 @@ const PaginationInTable = () => {
 
   const defaultLabelDisplayedRows = ({ from, to, count }: ModelRowsParams) => {
     return (
-      <Typography>
+      <Typography component="span">
         {from}–{to} z {count !== -1 ? count : to}
       </Typography>
     );
@@ -51,24 +51,12 @@ const PaginationInTable = () => {
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
       onRowsPerPageChange={handleChangeRowsPerPage}
-      labelRowsPerPage={<Typography>Liczba wpisów na stronie</Typography>}
+      labelRowsPerPage={
+        <Typography component="span">Liczba wpisów na stronie</Typography>
+      }
       labelDisplayedRows={defaultLabelDisplayedRows}
       rowsPerPageOptions={[5, 10]}
-      sx={{
-        "& .MuiSelect-select": {
-          paddingLeft: "8px",
-          paddingRight: "24px",
-          border: "1px solid #ccc",
-          backgroundColor: "#fff",
-          fontSize: "1.4rem",
-          display: "flex",
-          alignItems: "center",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          "&:hover": {
-            borderColor: "primary.main",
-          },
-        },
-      }}
+  
     />
   );
 };

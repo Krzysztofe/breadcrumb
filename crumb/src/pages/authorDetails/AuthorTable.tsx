@@ -1,4 +1,3 @@
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,7 +11,6 @@ import useDatabaseValues from "../../hooks/useDatabaseValues";
 const AuthorTable = () => {
   const navigate = useNavigate();
   const { bookIdUrl, authorUrl } = useParams();
-
   const { authorBooks } = useDatabaseValues(bookIdUrl, authorUrl);
 
   const handleBookClick = (id: string) => {
@@ -20,21 +18,22 @@ const AuthorTable = () => {
   };
 
   return (
-    <TableContainer
-      sx={{ padding: { xs: 1, sm:0 } }}
-    >
+    <TableContainer sx={{ padding: { xs: 1, sm: 0 } }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             {["Nr", "Autor", "Tytuł", "Rok wydania"].map(header => {
               return (
-                <TableCell>
-                  <Typography variant="h2">{header}</Typography>
+                <TableCell key={header}>
+                  <Typography variant="h2" component="span">
+                    {header}
+                  </Typography>
                 </TableCell>
               );
             })}
           </TableRow>
         </TableHead>
+
         <TableBody>
           {authorBooks?.map(
             ({ bookTitle, authorName, id, publishedDate }, idx) => {
@@ -49,27 +48,35 @@ const AuthorTable = () => {
                   }}
                 >
                   <TableCell>
-                    <Typography> {idx + 1} </Typography>
+                    <Typography component="span"> {idx + 1} </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography>{authorName}</Typography>
+                    <Typography>
+                      {!authorName ? (
+                        <Typography color="error" component="span">
+                          Brak autora
+                        </Typography>
+                      ) : (
+                        <Typography component="span">{authorName}</Typography>
+                      )}
+                    </Typography>
                   </TableCell>
                   <TableCell>
                     {!bookTitle ? (
-                      <Typography style={{ color: "red" }}>
+                      <Typography color="error" component="span">
                         Brak tytułu
                       </Typography>
                     ) : (
-                      <Typography>{bookTitle}</Typography>
+                      <Typography component="span">{bookTitle}</Typography>
                     )}
                   </TableCell>
                   <TableCell>
                     {!publishedDate ? (
-                      <Typography style={{ color: "red" }}>
+                      <Typography color="error" component="span">
                         Brak daty
                       </Typography>
                     ) : (
-                      <Typography>{publishedDate}</Typography>
+                      <Typography component="span">{publishedDate}</Typography>
                     )}
                   </TableCell>
                 </TableRow>

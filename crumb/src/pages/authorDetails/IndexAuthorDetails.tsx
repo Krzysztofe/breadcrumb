@@ -1,51 +1,19 @@
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../../components/BreadCrumb";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import useDatabaseValues from "../../hooks/useDatabaseValues";
+import useHttpRequestsContent from "../../hooks/useHttpRequestsContent";
 import AuthorTable from "./AuthorTable";
-import Container from "@mui/material/Container";
+import useDatabaseValues from "../../hooks/useDatabaseValues";
 
 const IndexAuthorDetails = () => {
   const { bookIdUrl, authorUrl } = useParams();
-  const { authorBooks, error, isLoading } = useDatabaseValues(
+  const { authorBooks } = useDatabaseValues(bookIdUrl, authorUrl);
+  const tableContent = useHttpRequestsContent(
+    <AuthorTable />,
     bookIdUrl,
     authorUrl
   );
-
-  let tableContent;
-
-  if (isLoading) {
-    tableContent = <LoadingSpinner />;
-  } else if (error) {
-    tableContent = (
-      <Typography
-        sx={{
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        Błąd
-      </Typography>
-    );
-  } else if (!authorBooks || authorBooks.length === 0) {
-    tableContent = (
-      <main
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div>Brak danych</div>
-      </main>
-    );
-  } else {
-    tableContent = <AuthorTable />;
-  }
 
   return (
     <main>
@@ -53,12 +21,19 @@ const IndexAuthorDetails = () => {
         <Breadcrumb />
         <Typography
           variant="h1"
-          component = "h2"
-          sx={{ padding: { xs: 1}, paddingLeft: { xs: 1, sm: 0 } }}
+          component="h2"
+          sx={{ padding: { xs: 1 }, paddingLeft: { xs: 1, sm: 0 } }}
         >
           Lista książek autora
         </Typography>
-        {tableContent}
+
+        {authorBooks?.length === 0 ? (
+          <Typography variant="h2" color="error" sx={{ textAlign: "center" }}>
+            Brak danych
+          </Typography>
+        ) : (
+          tableContent
+        )}
       </Container>
     </main>
   );

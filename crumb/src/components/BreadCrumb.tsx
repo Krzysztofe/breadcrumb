@@ -40,13 +40,8 @@ const Breadcrumb = () => {
       return (
         <Typography
           key={crypto.randomUUID()}
-          variant="body1"
-          sx={{
-            fontSize: "2rem",
-            ":hover": { color: "red" },
-            cursor: "pointer",
-            color: "olive",
-          }}
+          color="info.main"
+          variant="h3"
         >
           {crumbsToPrint}
         </Typography>
@@ -56,14 +51,14 @@ const Breadcrumb = () => {
         <RouterLink
           key={crypto.randomUUID()}
           to={currentLink}
-          // style={{ fontSize: "2rem", cursor: "pointer" }}
+          style={{ textDecoration: "none" }}
         >
           <Typography
+            color="info.main"
+            variant="h3"
             sx={{
-              ":hover": { color: "red" },
+              ":hover": { color: "secondary.main" },
               cursor: "pointer",
-              color: "olive",
-              fontSize: "2rem"
             }}
           >
             {crumbsToPrint}
@@ -77,20 +72,27 @@ const Breadcrumb = () => {
     <Box my={2} p={2} bgcolor="primary.main">
       <Breadcrumbs
         aria-label="breadcrumb"
-        separator={<NavigateNextIcon fontSize="small" />}
+        separator={
+          <NavigateNextIcon fontSize="small" sx={{ color: "info.main" }} />
+        }
       >
         {location.pathname === "/" ? (
-          <Typography variant="body1" sx={{ fontSize: "2rem" }}>
+          <Typography variant="h3" color="info.main">
             Lista
           </Typography>
         ) : (
-          <RouterLink to={`/`} style={{ fontSize: "2rem", cursor: "pointer" }}>
+          <RouterLink
+            to={`/`}
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <Typography
+              color="info.main"
+              variant="h3"
               sx={{
-                ":hover": { color: "red" },
+                ":hover": { color: "secondary.main" },
                 cursor: "pointer",
-                color: "olive",
-                fontSize: "2rem",
               }}
             >
               Lista

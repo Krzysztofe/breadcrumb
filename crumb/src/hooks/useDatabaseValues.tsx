@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { useBooksQuery } from "../services/ApiSlice";
 
 interface ModelBookToPrint {
@@ -7,8 +6,6 @@ interface ModelBookToPrint {
   authorName: string;
   publishedDate: string;
   bookCover: string;
-  publisher: string;
-  pageCount: number;
   description: string;
 }
 
@@ -17,16 +14,14 @@ interface ModelDatabaseValues {
   bookDetails?: ModelBookToPrint;
   authorBooks?: ModelBookToPrint[];
   error?: {};
-  isSuccess: boolean;
-  isLoading:any
+  isLoading: boolean;
 }
 
 const useDatabaseValues = (
   bookIdUrl: string = "default",
   authorUrl: string = "default"
 ): ModelDatabaseValues => {
-  const location = useLocation();
-  const { data, error, isSuccess, isLoading } = useBooksQuery();
+  const { data, error, isLoading } = useBooksQuery();
 
   const volumesData = data?.items?.map((volume: { [key: string]: any }) => {
     return volume?.volumeInfo;
@@ -40,8 +35,6 @@ const useDatabaseValues = (
         authorName: volume?.authors?.join(", "),
         publishedDate: volume.publishedDate,
         bookCover: volume.imageLinks.thumbnail,
-        publisher: volume.publisher,
-        pageCount: volume.pageCount,
         description: volume.description,
       };
     }
@@ -58,9 +51,7 @@ const useDatabaseValues = (
         })
       : [];
 
-  // console.log("bookdetails", authorBooks);
-
-  return { booksToPrint, isLoading, bookDetails, authorBooks, error, isSuccess };
+  return { booksToPrint, isLoading, bookDetails, authorBooks, error };
 };
 
 export default useDatabaseValues;

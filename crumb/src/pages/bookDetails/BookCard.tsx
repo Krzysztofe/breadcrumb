@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 
 const BookCard = () => {
-  const { bookIdUrl } = useParams();
-  const { bookDetails } = useDatabaseValues(bookIdUrl);
+  const { bookIdUrl, authorUrl } = useParams();
+  const { bookDetails } = useDatabaseValues(bookIdUrl, authorUrl);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -16,24 +16,28 @@ const BookCard = () => {
           width: { sm: 500, md: 600 },
           display: "flex",
           boxShadow: { xs: 0, sm: 3 },
-          padding: {xs:2}
+          padding: { xs: 2 },
         }}
       >
-        {bookDetails?.bookCover === undefined ? (
+        {!bookDetails?.bookCover ? (
           <Typography color="error">Brak okładki</Typography>
         ) : (
-          <img
-            src={bookDetails?.bookCover}
-            alt="Okładka książki"
-            style={{ height: "fit-content" }}
-          />
+          <Box>
+            <img
+              src={bookDetails?.bookCover}
+              alt="Okładka książki"
+              style={{ height: "fit-content" }}
+            />
+          </Box>
         )}
 
         <CardContent sx={{ flex: 1 }}>
           {!bookDetails?.authorName ? (
-            <Typography variant="h2" mb={2} color="error">
-              Brak autora
-            </Typography>
+            <>
+              <Typography variant="h2" mb={2} color="error">
+                Brak autora
+              </Typography>
+            </>
           ) : (
             <Typography variant="h2" mb={2}>
               {bookDetails?.authorName}
@@ -41,19 +45,25 @@ const BookCard = () => {
           )}
 
           {!bookDetails?.bookTitle ? (
-            <Typography variant="h3" color="error">
-              Brak tytułu
-            </Typography>
+            <>
+              <Typography variant="h3" color="error">
+                Brak tytułu
+              </Typography>
+            </>
           ) : (
             <Typography variant="h3">{bookDetails?.bookTitle}</Typography>
           )}
 
           {!bookDetails?.description ? (
-            <Typography variant="body2" color="error">
-              Brak opisu
-            </Typography>
+            <>
+              <Typography variant="body1" color="error">
+                Brak opisu
+              </Typography>
+            </>
           ) : (
-            <Typography variant="body2">{bookDetails?.description}</Typography>
+            <Typography variant="body1" color="primary.secondary">
+              {bookDetails?.description}
+            </Typography>
           )}
         </CardContent>
       </Card>
