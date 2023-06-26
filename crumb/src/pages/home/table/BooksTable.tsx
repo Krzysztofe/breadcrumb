@@ -38,13 +38,17 @@ const BooksTable = (props: Props) => {
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer sx={{ padding: { xs: 1, sm: 0 } }}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Nr</TableCell>
-            <TableCell>Autor</TableCell>
-            <TableCell>Tytuł</TableCell>
+            {["Nr", "Autor", "Tytuł"].map(header => {
+              return (
+                <TableCell>
+                  <Typography variant="h2"> {header}</Typography>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,35 +57,37 @@ const BooksTable = (props: Props) => {
               return (
                 <TableRow
                   key={id}
-                  //   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{
+                    backgroundColor: idx % 2 === 1 ? "primary.main" : "inherit",
+                  }}
                 >
-                  <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
+                  <TableCell>
+                    <Typography>{page * rowsPerPage + idx + 1}</Typography>
+                  </TableCell>
                   <TableCell
                     onClick={() => handleAuthorClick(authorName)}
                     sx={{
-                      ":hover": {
-                        backgroundColor: theme => theme.palette.secondary.main,
-                      },
+                      ":hover": { backgroundColor: "secondary.main" },
                       cursor: "pointer",
                     }}
                   >
                     {!authorName ? (
                       <Typography color="error">Brak autora</Typography>
                     ) : (
-                      authorName
+                      <Typography> {authorName} </Typography>
                     )}
                   </TableCell>
                   <TableCell
                     onClick={() => handleBookClick(id)}
                     sx={{
-                      ":hover": { backgroundColor: "red" },
+                      ":hover": { backgroundColor: "secondary.main" },
                       cursor: "pointer",
                     }}
                   >
                     {!bookTitle ? (
                       <Typography color="error">Brak tytułu</Typography>
                     ) : (
-                      bookTitle
+                      <Typography>{bookTitle}</Typography>
                     )}
                   </TableCell>
                 </TableRow>

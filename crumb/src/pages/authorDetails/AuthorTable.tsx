@@ -13,24 +13,26 @@ const AuthorTable = () => {
   const navigate = useNavigate();
   const { bookIdUrl, authorUrl } = useParams();
 
-  const { authorBooks } = useDatabaseValues(
-    bookIdUrl,
-    authorUrl
-  );
+  const { authorBooks } = useDatabaseValues(bookIdUrl, authorUrl);
 
   const handleBookClick = (id: string) => {
     navigate(`/author/${authorUrl}/${id}`);
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      sx={{ padding: { xs: 1, sm:0 } }}
+    >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Nr</TableCell>
-            <TableCell>Autor</TableCell>
-            <TableCell>Tytuł</TableCell>
-            <TableCell>Rok wydania</TableCell>
+            {["Nr", "Autor", "Tytuł", "Rok wydania"].map(header => {
+              return (
+                <TableCell>
+                  <Typography variant="h2">{header}</Typography>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,12 +43,17 @@ const AuthorTable = () => {
                   key={id}
                   onClick={() => handleBookClick(id)}
                   sx={{
-                    ":hover": { backgroundColor: "red" },
+                    ":hover": { backgroundColor: "secondary.main" },
                     cursor: "pointer",
+                    backgroundColor: idx % 2 === 1 ? "primary.main" : "inherit",
                   }}
                 >
-                  <TableCell>{idx + 1}</TableCell>
-                  <TableCell>{authorName}</TableCell>
+                  <TableCell>
+                    <Typography> {idx + 1} </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{authorName}</Typography>
+                  </TableCell>
                   <TableCell>
                     {!bookTitle ? (
                       <Typography style={{ color: "red" }}>

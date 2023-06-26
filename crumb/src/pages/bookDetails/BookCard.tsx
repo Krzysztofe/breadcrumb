@@ -49,11 +49,11 @@ const BookCard = () => {
           )}
 
           {!bookDetails?.description ? (
-            <Typography variant="body1" color="error">
+            <Typography variant="body2" color="error">
               Brak opisu
             </Typography>
           ) : (
-            <Typography variant="body1">{bookDetails?.description}</Typography>
+            <Typography variant="body2">{bookDetails?.description}</Typography>
           )}
         </CardContent>
       </Card>

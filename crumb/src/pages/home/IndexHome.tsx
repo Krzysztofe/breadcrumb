@@ -4,6 +4,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 import BooksTable from "./table/BooksTable";
 import PaginationInTable from "./table/PaginationInTable";
+import Container from "@mui/material/Container";
 
 const IndexHome = () => {
   const { booksToPrint, error, isLoading } = useDatabaseValues();
@@ -48,11 +49,17 @@ const IndexHome = () => {
 
   return (
     <main className="">
-      <Breadcrumb />
-      <Typography variant="h1" component="h1" fontSize="">
-        Lista książek
-      </Typography>
-      {tableContent}
+      <Container sx={{ padding: { xs: 0, sm: 2 } }}>
+        <Breadcrumb />
+        <Typography
+          variant="h1"
+          component="h1"
+          sx={{ padding: { xs: 1 }, paddingLeft: { xs: 1, sm: 0 } }}
+        >
+          Lista książek
+        </Typography>
+        {tableContent}
+      </Container>
     </main>
   );
 };

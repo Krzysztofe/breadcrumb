@@ -4,6 +4,7 @@ import Breadcrumb from "../../components/BreadCrumb";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useDatabaseValues from "../../hooks/useDatabaseValues";
 import AuthorTable from "./AuthorTable";
+import Container from "@mui/material/Container";
 
 const IndexAuthorDetails = () => {
   const { bookIdUrl, authorUrl } = useParams();
@@ -48,11 +49,17 @@ const IndexAuthorDetails = () => {
 
   return (
     <main>
-      <Breadcrumb />
-      <Typography variant="h2" component="h2" fontSize="">
-        Lista książek wybranego autora
-      </Typography>
-      {tableContent}
+      <Container sx={{ padding: { xs: 0, sm: 2 } }}>
+        <Breadcrumb />
+        <Typography
+          variant="h1"
+          component = "h2"
+          sx={{ padding: { xs: 1}, paddingLeft: { xs: 1, sm: 0 } }}
+        >
+          Lista książek autora
+        </Typography>
+        {tableContent}
+      </Container>
     </main>
   );
 };

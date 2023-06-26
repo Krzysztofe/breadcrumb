@@ -17,16 +17,17 @@ const root = ReactDOM.createRoot(
 let theme = createTheme({
   palette: {
     primary: {
-      main: "rgb(77,84,96)",
+      main: "rgb(242,242,242)",
     },
 
     secondary: {
-      main: "rgb(161,193,232)",
+      main: "rgb(153,161,173)",
     },
   },
   typography: {
     h1: {
-      fontSize: "3rem",
+      fontSize: "3.5rem",
+      fontWeight: 500,
     },
     h2: {
       fontSize: "2.5rem",
@@ -37,6 +38,10 @@ let theme = createTheme({
       fontWeight: 500,
     },
     body1: {
+      fontSize: "1.8rem",
+      color: "rgb(0,0,0)",
+    },
+    body2: {
       fontSize: "1.5rem",
       color: "rgb(153,153,153)",
     },
