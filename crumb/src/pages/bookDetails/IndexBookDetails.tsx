@@ -1,4 +1,5 @@
 import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../../components/BreadCrumb";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -46,10 +47,12 @@ const IndexBookDetails = () => {
   }
 
   return (
-    <>
-      <Breadcrumb />
-      {bookCardContent}
-    </>
+    <main>
+      <Container sx={{ padding: { xs: 0, sm: 2 } }}>
+        <Breadcrumb />
+        {bookCardContent}
+      </Container>
+    </main>
   );
 };
 

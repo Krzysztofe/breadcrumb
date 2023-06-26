@@ -2,6 +2,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Box from "@mui/material/Box";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import { Link as RouterLink, useLocation, useParams } from "react-router-dom";
 import useDatabaseValues from "../hooks/useDatabaseValues";
 
@@ -40,7 +41,12 @@ const Breadcrumb = () => {
         <Typography
           key={crypto.randomUUID()}
           variant="body1"
-          sx={{ fontSize: "2rem" }}
+          sx={{
+            fontSize: "2rem",
+            ":hover": { color: "red" },
+            cursor: "pointer",
+            color: "olive",
+          }}
         >
           {crumbsToPrint}
         </Typography>
@@ -50,16 +56,25 @@ const Breadcrumb = () => {
         <RouterLink
           key={crypto.randomUUID()}
           to={currentLink}
-          style={{ fontSize: "2rem", cursor: "pointer" }}
+          // style={{ fontSize: "2rem", cursor: "pointer" }}
         >
-          {crumbsToPrint}
+          <Typography
+            sx={{
+              ":hover": { color: "red" },
+              cursor: "pointer",
+              color: "olive",
+              fontSize: "2rem"
+            }}
+          >
+            {crumbsToPrint}
+          </Typography>
         </RouterLink>
       );
     }
   });
 
   return (
-    <Box m={2} p={2} bgcolor="#f5f5f5">
+    <Box my={2} p={2} bgcolor="primary.main">
       <Breadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
@@ -70,7 +85,16 @@ const Breadcrumb = () => {
           </Typography>
         ) : (
           <RouterLink to={`/`} style={{ fontSize: "2rem", cursor: "pointer" }}>
-            Lista
+            <Typography
+              sx={{
+                ":hover": { color: "red" },
+                cursor: "pointer",
+                color: "olive",
+                fontSize: "2rem",
+              }}
+            >
+              Lista
+            </Typography>
           </RouterLink>
         )}
 

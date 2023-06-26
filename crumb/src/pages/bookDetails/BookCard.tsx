@@ -1,4 +1,5 @@
 import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
@@ -9,8 +10,15 @@ const BookCard = () => {
   const { bookDetails } = useDatabaseValues(bookIdUrl);
 
   return (
-    <>
-      <Card sx={{ maxWidth: 345, display: "flex" }}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Card
+        sx={{
+          width: { sm: 500, md: 600 },
+          display: "flex",
+          boxShadow: { xs: 0, sm: 3 },
+          padding: {xs:2}
+        }}
+      >
         {bookDetails?.bookCover === undefined ? (
           <Typography color="error">Brak okładki</Typography>
         ) : (
@@ -23,37 +31,33 @@ const BookCard = () => {
 
         <CardContent sx={{ flex: 1 }}>
           {!bookDetails?.authorName ? (
-            <Typography variant="h6" color="error">
+            <Typography variant="h2" mb={2} color="error">
               Brak autora
             </Typography>
           ) : (
-            <Typography variant="h6" >
+            <Typography variant="h2" mb={2}>
               {bookDetails?.authorName}
             </Typography>
           )}
-          
+
           {!bookDetails?.bookTitle ? (
-            <Typography variant="h5" color="error">
+            <Typography variant="h3" color="error">
               Brak tytułu
             </Typography>
           ) : (
-            <Typography variant="h5">
-              {bookDetails?.bookTitle}
-            </Typography>
+            <Typography variant="h3">{bookDetails?.bookTitle}</Typography>
           )}
 
           {!bookDetails?.description ? (
-            <Typography variant="body2" color="error">
+            <Typography variant="body1" color="error">
               Brak opisu
             </Typography>
           ) : (
-            <Typography variant="body2" color="text.secondary">
-              {bookDetails?.description}
-            </Typography>
+            <Typography variant="body1">{bookDetails?.description}</Typography>
           )}
         </CardContent>
       </Card>
-    </>
+    </Box>
   );
 };
 
